@@ -1,4 +1,4 @@
-import { existsSync, rmdirSync } from "fs";
+import { existsSync, readFileSync, rmdirSync } from "fs";
 import { defaultServiceBuilder } from "../builder";
 
 const outputDir = `${process.cwd()}/.tests`
@@ -10,10 +10,14 @@ beforeAll(() => {
 
 describe('Service Generator', () => {
   it('shound generate', async () => {
-    defaultServiceBuilder({
+    await defaultServiceBuilder({
       rootDir: outputDir,
       restResourcePath: '/v1/admin/sponsors/',
     })
+
+    const generated = readFileSync(`${outputDir}/services/caju/v1/admin/sponsors/index.ts`)
+    const reference = readFileSync(`${__dirname}/outputs/index.ts`)
+    expect(generated.toString()).toEqual(reference.toString())
   })
 })
 
