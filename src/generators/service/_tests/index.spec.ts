@@ -1,24 +1,20 @@
-import { existsSync, readFileSync, rmdirSync } from "fs";
+import { expectFilesToBeEqual } from "../../../lib/jest/expectFilesToBeEqual";
+import { getOutputPath, resetOutputDir } from "../../../lib/jest/utils";
 import { serviceBuilder } from "../builder";
 
-const outputDir = `${process.cwd()}/.tests`
-
 beforeAll(() => {
-  if(existsSync(outputDir))
-    rmdirSync(outputDir, { recursive: true });
+  resetOutputDir()
 })
 
 describe('Service Generator', () => {
   it('shound generate', async () => {
     await serviceBuilder({
-      rootDir: outputDir,
+      rootDir: getOutputPath(),
       restResourcePath: '/v1/admin/sponsors/',
     })
 
-    const generated = readFileSync(`${outputDir}/services/caju/v1/admin/sponsors/index.ts`)
-    const mock = readFileSync(`${__dirname}/mocks/index.ts`)
-    expect(generated.toString()).toEqual(mock.toString())
+    const mock = `${__dirname}/mocks/index.ts`
+    const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
+    expectFilesToBeEqual(mock, generated)
   })
 })
-
-export default {}
