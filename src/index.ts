@@ -1,4 +1,4 @@
-import { defaultServiceEnquirer } from "./generators/defaultService/enquirer"
+import { serviceEnquirer } from "./generators/service/enquirer"
 
 async function main() {
   try {

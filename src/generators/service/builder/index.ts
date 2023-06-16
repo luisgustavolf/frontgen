@@ -3,7 +3,7 @@ import { writeTemplate } from "../../../lib/ejs/fileWriter";
 import { IIndexData } from "../templates/index.data";
 import { IBuilderProps } from "./iBuilderProps";
 
-export async function defaultServiceBuilder(props: IBuilderProps) {
+export async function serviceBuilder(props: IBuilderProps) {
   const baseDir = getBaseDir(props.restResourcePath)
   const baseName = getBaseName(props.restResourcePath)
   const rootDir = props.rootDir || process.cwd()

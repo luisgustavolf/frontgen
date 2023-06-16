@@ -1,6 +1,6 @@
 import { prompt } from 'enquirer'
 
-export async function defaultServiceEnquirer() {
+export async function serviceEnquirer() {
   console.log('Default Service Runner')
   
   const response = await prompt({
