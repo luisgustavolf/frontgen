@@ -1,8 +1,8 @@
-import { defaultServiceRunner } from "./generators/defaultService/enquirer"
+import { defaultServiceEnquirer } from "./generators/defaultService/enquirer"
 
 async function main() {
   try {
-    await defaultServiceRunner()
+    await defaultServiceEnquirer()
   } catch (error) {
     if(error)
       console.log(error)    

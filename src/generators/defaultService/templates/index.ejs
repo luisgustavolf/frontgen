@@ -1,0 +1,14 @@
+<% 
+  const serviceName = `${baseName}Service` 
+  const bodyParamName = `${baseName}Body` 
+  const responseParamName = `${baseName}Response` 
+%>
+import axios from 'axios'
+
+export class <%= serviceName %> {
+  static async list(data: <%= bodyParamName %>) {
+    const url = '<%= restResourcePath %>'
+    const response = await axios.get<%= responseParamName %>(url)
+    return response.data
+  }
+}
