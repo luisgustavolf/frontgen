@@ -4,8 +4,8 @@ import { IIndexData } from "../templates/index.data";
 import { IBuilderProps } from "./iBuilderProps";
 
 export async function serviceBuilder(props: IBuilderProps) {
-  const baseDir = getBaseDir(props.restResourcePath)
-  const baseName = getBaseName(props.restResourcePath)
+  const baseDir = getBaseDir(props.vendor, props.restResource)
+  const baseName = getBaseName(props.restResource)
   const rootDir = props.rootDir || process.cwd()
   
   await writeTemplate<IIndexData>({
@@ -13,16 +13,17 @@ export async function serviceBuilder(props: IBuilderProps) {
     tempateFile: `${__dirname}/../templates/index.ejs`,
     templateData: {
       baseName: baseName,
-      restResourcePath: props.restResourcePath
+      restResource: props.restResource,
+      restResourceAction: props.restResourceAction
     }
   })
 }
 
-function getBaseDir(restResourcePath: string) {
+function getBaseDir(vendor: string, restResourcePath: string) {
   const parts = restResourcePath.split('/')
   const validParts = parts.filter((part) => part && !part.includes(':'))
   const finalPath = validParts.join('/') 
-  return `/services/caju/${finalPath}`
+  return `/services/${vendor}/${finalPath}`
 }
 
 function getBaseName(restResourcePath: string) {

@@ -1,4 +1,5 @@
 export interface IIndexData {
   baseName: string
-  restResourcePath: string
+  restResource: string
+  restResourceAction: string
 }

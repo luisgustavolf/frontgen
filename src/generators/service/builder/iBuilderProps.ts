@@ -1,4 +1,6 @@
 export interface IBuilderProps {
   rootDir?: string
-  restResourcePath: string
+  vendor: string
+  restResource: string
+  restResourceAction: string
 }
