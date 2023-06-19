@@ -1,5 +1,6 @@
-export interface IWriteFileProps<TData> {
+export interface IWriteFileProps<TData, TContext> {
   tempateFile: string
-  templateData: TData
+  templateData?: TData
+  templateContext?: TContext
   destinationFile: string
 }

@@ -1,40 +1,6 @@
-<% 
-  const finalRestResourceAction = restResourceAction ? 
-    restResourceAction.charAt(0).toUpperCase() + 
-    restResourceAction.slice(1) : ''
-
-  const serviceName = `${baseName}Service` 
-  const paramName = `${baseName}${finalRestResourceAction}Data` 
-  const responseName = `${baseName}${finalRestResourceAction}Response` 
-
-  const params = [`data: ${paramName}`]
-
-  const routeParams = restResource
-    .split('/')
-    .filter((part) => part.includes(":"))
-    .map((part, idx) => `${part.replace(':', '')}: string`)
-
-  const finalParams = [...routeParams, ...params].join(', ')
-
-  const finalUrl = restResource
-    .split('/')
-    .map((part, idx) => {
-      if (part.includes(':'))
-        return '${' + part.replace(':', '') + '}'
-      else
-        return part
-    })
-    .join('/')
-
-_%>
 import axios from 'axios'
-import { <%= paramName %> } from './i<%= paramName %>'
-import { <%= responseName %> } from './i<%= responseName %>'
+<%- include('imports'); %>
 
-export class <%= serviceName %> {
-  static async fn(<%= finalParams %>) {
-    const url = `<%= finalUrl + restResourceAction %>`
-    const response = await axios.get<<%= responseName %>>(url, data)
-    return response.data
-  }
+export class <%= this.getServiceName() %> {
+  <%- include('funtion'); %>
 }

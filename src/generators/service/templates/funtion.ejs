@@ -1,0 +1,5 @@
+static async fn(<%= this.getFnParams() %>) {
+  const url = `<%= this.getUrl() %>`
+  const response = await axios.get<<%= this.getResponseName() %>>(url, data)
+  return response.data
+}

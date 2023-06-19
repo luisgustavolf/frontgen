@@ -1,8 +1,8 @@
 import { existsSync } from "fs";
 import { writeTemplate } from "../../../lib/ejs/fileWriter";
-import { IIndexData } from "../templates/index.data";
 import { IBuilderProps } from "./iBuilderProps";
-import { getBaseDir, getBaseName } from "./helpers";
+import { getBaseDir } from "./helpers";
+import { RenderContext } from "./renderContext";
 
 export async function serviceBuilder(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
@@ -18,18 +18,14 @@ export async function serviceBuilder(props: IBuilderProps) {
 
 async function createNewServiceFile(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
-  const baseName = getBaseName(props.restResource)
   const rootDir = props.rootDir || process.cwd()
   const destinationFile = `${rootDir}${baseDir}/index.ts`
-  
-  await writeTemplate<IIndexData>({
+  const context = new RenderContext(props)
+
+  await writeTemplate({
     destinationFile,
     tempateFile: `${__dirname}/../templates/index.ejs`,
-    templateData: {
-      baseName: baseName,
-      restResource: props.restResource,
-      restResourceAction: props.restResourceAction
-    }
+    templateContext: context
   })
 }
 
@@ -38,6 +34,6 @@ async function injectIntoExistentServiceFile(props: IBuilderProps) {
   const rootDir = props.rootDir || process.cwd()
   const destinationFile = `${rootDir}${baseDir}/index.ts`
 
-  
+
 }
 
