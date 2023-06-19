@@ -1,15 +1,29 @@
-import { pascalCase } from "change-case";
+import { existsSync } from "fs";
 import { writeTemplate } from "../../../lib/ejs/fileWriter";
 import { IIndexData } from "../templates/index.data";
 import { IBuilderProps } from "./iBuilderProps";
+import { getBaseDir, getBaseName } from "./helpers";
 
 export async function serviceBuilder(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
+  const rootDir = props.rootDir || process.cwd()
+  const destinationFile = `${rootDir}${baseDir}/index.ts`
+
+  if (existsSync(destinationFile)) {
+    await injectIntoExistentServiceFile(props)
+  } else {
+    await createNewServiceFile(props)
+  }
+}
+
+async function createNewServiceFile(props: IBuilderProps) {
+  const baseDir = getBaseDir(props.vendor, props.restResource)
   const baseName = getBaseName(props.restResource)
   const rootDir = props.rootDir || process.cwd()
+  const destinationFile = `${rootDir}${baseDir}/index.ts`
   
   await writeTemplate<IIndexData>({
-    destinationFile: `${rootDir}${baseDir}/index.ts`,
+    destinationFile,
     tempateFile: `${__dirname}/../templates/index.ejs`,
     templateData: {
       baseName: baseName,
@@ -19,16 +33,11 @@ export async function serviceBuilder(props: IBuilderProps) {
   })
 }
 
-function getBaseDir(vendor: string, restResourcePath: string) {
-  const parts = restResourcePath.split('/')
-  const validParts = parts.filter((part) => part && !part.includes(':'))
-  const finalPath = validParts.join('/') 
-  return `/services/${vendor}/${finalPath}`
+async function injectIntoExistentServiceFile(props: IBuilderProps) {
+  const baseDir = getBaseDir(props.vendor, props.restResource)
+  const rootDir = props.rootDir || process.cwd()
+  const destinationFile = `${rootDir}${baseDir}/index.ts`
+
+  
 }
 
-function getBaseName(restResourcePath: string) {
-  const parts = restResourcePath.split('/')
-  const validParts = parts.filter((part) => part && !part.includes(':'))
-  const validSenense = validParts.join(' ')
-  return pascalCase(validSenense) 
-}
