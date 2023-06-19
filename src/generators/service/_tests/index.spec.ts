@@ -46,7 +46,7 @@ describe('Service Generator', () => {
     expectFilesToBeEqual(mock, generated)
   })
 
-  it.skip('should append method to a existent service', async () => {
+  it.only('should append method to a existent service', async () => {
     await serviceBuilder({
       rootDir: getOutputPath(),
       vendor: 'caju',
@@ -60,5 +60,9 @@ describe('Service Generator', () => {
       restResource: '/v1/admin/sponsors',
       restResourceAction: 'newAction'
     })
+
+    const mock = `${__dirname}/mocks/withNewAction.ts`
+    const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
+    expectFilesToBeEqual(mock, generated)
   })
 })
