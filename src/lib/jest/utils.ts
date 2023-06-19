@@ -1,10 +1,10 @@
-import { existsSync, rmdirSync } from "fs";
+import { existsSync, rmSync } from "fs";
 
 export const outputDir = `${process.cwd()}/.tests`
 
 export function resetOutputDir() {
   if(existsSync(outputDir))
-    rmdirSync(outputDir, { recursive: true });
+    rmSync(outputDir, { recursive: true });
 }
 
 export function getOutputPath(path?: string) {
