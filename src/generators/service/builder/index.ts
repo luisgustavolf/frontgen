@@ -8,7 +8,7 @@ import { addAtEndOfImports } from "../../../lib/file/injectors/addAtEndOfImports
 import { addAtEndOfServiceClass } from "../../../lib/file/injectors/addAtEndOfServiceClass";
 import { format } from "prettier";
 
-export async function serviceBuilder(props: IBuilderProps) {
+export async function generateService(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
   const rootDir = props.rootDir || process.cwd()
   const destinationFile = `${rootDir}${baseDir}/index.ts`
@@ -24,7 +24,10 @@ async function createNewServiceFile(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
   const rootDir = props.rootDir || process.cwd()
   const destinationFile = `${rootDir}${baseDir}/index.ts`
-  const context = new RenderContext(props)
+  const context = new RenderContext({ 
+    restResource: props.restResource,
+    restResourceAction: props.restResourceAction
+  })
 
   await writeTemplate({
     destinationFile,
@@ -36,7 +39,10 @@ async function createNewServiceFile(props: IBuilderProps) {
 async function injectIntoExistentServiceFile(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
   const rootDir = props.rootDir || process.cwd()
-  const context = new RenderContext(props)
+  const context = new RenderContext({ 
+    restResource: props.restResource,
+    restResourceAction: props.restResourceAction
+  })
   
   const destinationFile = `${rootDir}${baseDir}/index.ts`
   let destinatioContent = readFileSync(destinationFile).toString() 

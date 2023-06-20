@@ -1,18 +1,12 @@
 import { pascalCase } from "change-case";
-import { getBaseDir, getBaseName } from "./helpers";
-import { IBuilderProps } from "./iBuilderProps";
+import { getBaseName } from "./helpers";
+import { IRenderContextProps } from "./iRenderContextProps";
 
 export class RenderContext {
-  baseDir = ''
   baseName = ''
-  rootDir = ''
-  destinationFile = ''
 
-  constructor(public props: IBuilderProps) {
-    this.baseDir = getBaseDir(props.vendor, props.restResource)
+  constructor(public props: IRenderContextProps) {
     this.baseName = getBaseName(props.restResource)
-    this.rootDir = props.rootDir || process.cwd()
-    this.destinationFile = `${this.rootDir}${this.baseDir}/index.ts`
   }
 
   getRestResourceActionName() {
