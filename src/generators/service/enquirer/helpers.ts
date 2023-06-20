@@ -1,16 +1,19 @@
 export function getPossibleControllerAndAction(restPath: string) {
-  let controller = restPath
-  let action = ''
-  const parts = restPath.split('/')
- 
-  if (!parts[parts.length - 1].includes(':')) {
-    action = parts[-1]
+  let possibleController = restPath
+  let possibleAction = ''
+  const parts = restPath.split('/').filter((path) => !!path)
+  const lastPart = parts[parts.length - 1]
+  const isLastPartAParam = lastPart.includes(':')
+
+  if (!isLastPartAParam) {
+    possibleAction = lastPart
     parts.pop()
-    controller = parts.join('/')
+    possibleController = parts.join('/') + '/'
   }
 
   return {
-    controller,
-    action
+    originalPath: parts.join('/') + '/',
+    possibleController,
+    possibleAction
   }
 }
