@@ -28,7 +28,7 @@ async function createNewServiceFile(props: IBuilderProps) {
 
   await writeTemplate({
     destinationFile,
-    tempateFile: `${__dirname}/../templates/index.ejs`,
+    tempateFile: `${__dirname}/templates/index.ejs`,
     templateContext: context
   })
 }
@@ -41,10 +41,10 @@ async function injectIntoExistentServiceFile(props: IBuilderProps) {
   const destinationFile = `${rootDir}${baseDir}/index.ts`
   let destinatioContent = readFileSync(destinationFile).toString() 
   
-  const importsTemplate = `${__dirname}/../templates/imports.ejs`
+  const importsTemplate = `${__dirname}/templates/imports.ejs`
   const importsContent = await readTemplate(importsTemplate, {}, { context })
 
-  const functionTemplate = `${__dirname}/../templates/function.ejs`
+  const functionTemplate = `${__dirname}/templates/function.ejs`
   const functionContent = await readTemplate(functionTemplate, {}, { context })
 
   destinatioContent = addAtEndOfImports(destinatioContent, importsContent)

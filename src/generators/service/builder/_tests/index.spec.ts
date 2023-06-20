@@ -1,6 +1,6 @@
-import { expectFilesToBeEqual } from "../../../lib/jest/expectFilesToBeEqual";
-import { getOutputPath, resetOutputDir } from "../../../lib/jest/utils";
-import { serviceBuilder } from "../builder";
+import { expectFilesToBeEqual } from "../../../../lib/jest/expectFilesToBeEqual";
+import { getOutputPath, resetOutputDir } from "../../../../lib/jest/utils";
+import { serviceBuilder } from "..";
 
 beforeEach(() => {
   resetOutputDir()
@@ -15,7 +15,7 @@ describe('Service Generator', () => {
       restResourceAction: ''
     })
 
-    const mock = `${__dirname}/mocks/simple.ts`
+    const mock = `${__dirname}/snapshots/simple.ts`
     const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
@@ -28,7 +28,7 @@ describe('Service Generator', () => {
       restResourceAction: 'action'
     })
 
-    const mock = `${__dirname}/mocks/withResourceAction.ts`
+    const mock = `${__dirname}/snapshots/withResourceAction.ts`
     const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
@@ -41,27 +41,27 @@ describe('Service Generator', () => {
       restResourceAction: ''
     })
 
-    const mock = `${__dirname}/mocks/withParameters.ts`
+    const mock = `${__dirname}/snapshots/withParameters.ts`
     const generated = getOutputPath(`/services/caju/v1/sponsors/transactions/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
 
-  it.only('should append method to a existent service', async () => {
+  it('should append method to a existent service', async () => {
     await serviceBuilder({
       rootDir: getOutputPath(),
       vendor: 'caju',
-      restResource: '/v1/admin/sponsors',
+      restResource: '/v1/admin/sponsors/',
       restResourceAction: ''
     })
 
     await serviceBuilder({
       rootDir: getOutputPath(),
       vendor: 'caju',
-      restResource: '/v1/admin/sponsors',
+      restResource: '/v1/admin/sponsors/',
       restResourceAction: 'newAction'
     })
 
-    const mock = `${__dirname}/mocks/withNewAction.ts`
+    const mock = `${__dirname}/snapshots/withNewAction.ts`
     const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })

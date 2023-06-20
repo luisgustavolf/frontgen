@@ -20,7 +20,7 @@ export function addAtEndOfServiceClass(fileStr: string, strToInsert: string) {
         bracketsStack.pop()
         continue
       } else {
-        lines.splice(i, 0, strToInsert)
+        lines.splice(i, 0, '\n' + strToInsert)
         break
       }
     }
