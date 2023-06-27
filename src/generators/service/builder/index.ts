@@ -4,10 +4,10 @@ import { appendAtEndOfFile } from "../../../lib/file/injectors/appendAtEndOfFile
 import { appendAtEndOfImports } from "../../../lib/file/injectors/appendAtEndOfImports";
 import { appendAtEndOfServiceClass } from "../../../lib/file/injectors/appendAtEndOfServiceClass";
 import { getBaseDir } from "./helpers";
-import { IServiceGeneratorProps } from "./iServiceGenerator";
+import { IServiceBuilderProps } from "./iServiceBuilder";
 import { RenderContext } from "./renderContext";
 
-export async function serviceGenerator(props: IServiceGeneratorProps) {
+export async function serviceBuilder(props: IServiceBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
   const rootDir = props.rootDir || process.cwd()
   const destinationFile = `${rootDir}${baseDir}/index.ts`

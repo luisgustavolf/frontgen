@@ -1,4 +1,4 @@
-export interface IServiceGeneratorProps {
+export interface IServiceBuilderProps {
   rootDir?: string
   vendor: string
   restResource: string
