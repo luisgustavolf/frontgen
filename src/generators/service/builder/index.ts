@@ -1,6 +1,6 @@
 import { existsSync } from "fs";
 import { templateWriter } from "../../../lib/ejs/templateWriter";
-import { appendInjector } from "../../../lib/file/injectors/append";
+import { appendAtEndOfFile } from "../../../lib/file/injectors/appendAtEndOfFile";
 import { appendAtEndOfImports } from "../../../lib/file/injectors/appendAtEndOfImports";
 import { appendAtEndOfServiceClass } from "../../../lib/file/injectors/appendAtEndOfServiceClass";
 import { getBaseDir } from "./helpers";
@@ -35,7 +35,7 @@ async function createNewServiceFile(props: IBuilderProps) {
       dir: baseDir,
       fileName: 'index.ts'
     },
-    injector: appendInjector
+    injector: appendAtEndOfFile
   })
 }
 

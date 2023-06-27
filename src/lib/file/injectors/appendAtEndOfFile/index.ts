@@ -1,6 +1,6 @@
 import { IFileInjector } from "../../../ejs/templateWriter/iFileInjector";
 
-export const appendInjector: IFileInjector = (template: string[], destination: string[]) =>  {
+export const appendAtEndOfFile: IFileInjector = (template: string[], destination: string[]) =>  {
   const result: string[] = [...destination]
   const toInject = [...template]
 
