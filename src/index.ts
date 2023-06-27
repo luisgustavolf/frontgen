@@ -1,8 +1,8 @@
-import { serviceEnquirer } from "./generators/service/enquirer"
+import { serviceInquirer } from "./generators/service/inquirer"
 
 async function main() {
   try {
-    await serviceEnquirer()
+    await serviceInquirer()
   } catch (error) {
     if(error)
       console.log(error)    

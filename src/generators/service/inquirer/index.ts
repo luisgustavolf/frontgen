@@ -3,7 +3,7 @@ import { getPossibleControllerAndAction } from './helpers';
 import { restPathValidator } from './validators';
 import { serviceBuilder } from '../builder';
 
-export async function serviceEnquirer() {
+export async function serviceInquirer() {
   let isController = false
 
   const vendorResponse = await input({
