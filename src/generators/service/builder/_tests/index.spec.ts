@@ -1,6 +1,6 @@
 import { expectFilesToBeEqual } from "../../../../lib/jest/expectFilesToBeEqual";
 import { getOutputPath, resetOutputDir } from "../../../../lib/jest/utils";
-import { generateService } from "..";
+import { serviceGenerator } from "..";
 
 beforeEach(() => {
   resetOutputDir()
@@ -8,7 +8,7 @@ beforeEach(() => {
 
 describe('Service Generator', () => {
   it('shound generate', async () => {
-    await generateService({
+    await serviceGenerator({
       rootDir: getOutputPath(),
       vendor: 'caju',
       restResource: '/v1/admin/sponsors/',
@@ -21,7 +21,7 @@ describe('Service Generator', () => {
   })
 
   it('shound generate with rest resource action', async () => {
-    await generateService({
+    await serviceGenerator({
       rootDir: getOutputPath(),
       vendor: 'caju',
       restResource: '/v1/admin/sponsors/',
@@ -34,7 +34,7 @@ describe('Service Generator', () => {
   })
 
   it('shound generate with parameters', async () => {
-    await generateService({
+    await serviceGenerator({
       rootDir: getOutputPath(),
       vendor: 'caju',
       restResource: '/v1/sponsors/:sponsorId/transactions/:transactionId/',
@@ -47,14 +47,14 @@ describe('Service Generator', () => {
   })
 
   it('should append method to a existent service', async () => {
-    await generateService({
+    await serviceGenerator({
       rootDir: getOutputPath(),
       vendor: 'caju',
       restResource: '/v1/admin/sponsors/',
       restResourceAction: ''
     })
 
-    await generateService({
+    await serviceGenerator({
       rootDir: getOutputPath(),
       vendor: 'caju',
       restResource: '/v1/admin/sponsors/',

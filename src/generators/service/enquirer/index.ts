@@ -1,7 +1,7 @@
 import { input, confirm } from '@inquirer/prompts'
 import { getPossibleControllerAndAction } from './helpers';
 import { restPathValidator } from './validators';
-import { generateService } from '../builder';
+import { serviceGenerator } from '../builder';
 
 export async function serviceEnquirer() {
   let isController = false
@@ -25,7 +25,7 @@ export async function serviceEnquirer() {
     });
   }
 
-  await generateService({
+  await serviceGenerator({
     vendor: vendorResponse,
     restResource: isController ? possbileResource.possibleController : restPathResponse,
     restResourceAction: isController ? possbileResource.possibleAction : ''

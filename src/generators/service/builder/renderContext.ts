@@ -1,6 +1,10 @@
 import { camelCase, pascalCase } from "change-case";
 import { getBaseName } from "./helpers";
-import { IRenderContextProps } from "./iRenderContextProps";
+
+export interface IRenderContextProps {
+  restResource: string
+  restResourceAction: string
+}
 
 export class RenderContext {
   baseName = ''
