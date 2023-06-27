@@ -22,17 +22,20 @@ export async function generateService(props: IBuilderProps) {
 
 async function createNewServiceFile(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
-  const rootDir = props.rootDir || process.cwd()
-  const destinationFile = `${rootDir}${baseDir}/index.ts`
   const context = new RenderContext({ 
     restResource: props.restResource,
     restResourceAction: props.restResourceAction
   })
 
   await writeTemplate({
-    destinationFile,
-    tempateFile: `${__dirname}/templates/index.ejs`,
-    templateContext: context
+    template: {
+      file: `${__dirname}/templates/index.ejs`,
+      context
+    },
+    destination: {
+      dir: baseDir,
+      fileName: 'index.ts'
+    }
   })
 }
 

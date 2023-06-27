@@ -1,6 +1,13 @@
 export interface IWriteFileProps<TData, TContext> {
-  tempateFile: string
-  templateData?: TData
-  templateContext?: TContext
-  destinationFile: string
+  template: {
+    file: string
+    data?: TData
+    context?: TContext
+  },
+  destination: {
+    root?: string
+    dir: string
+    fileName: string
+    breakIfExists?: boolean
+  }
 }
