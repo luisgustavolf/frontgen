@@ -16,7 +16,7 @@ describe('Service Generator', () => {
     })
 
     const mock = `${__dirname}/snapshots/simple.ts`
-    const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
+    const generated = getOutputPath(`/src/services/caju/v1/admin/sponsors/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
 
@@ -29,7 +29,7 @@ describe('Service Generator', () => {
     })
 
     const mock = `${__dirname}/snapshots/withResourceAction.ts`
-    const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
+    const generated = getOutputPath(`/src/services/caju/v1/admin/sponsors/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
 
@@ -42,7 +42,7 @@ describe('Service Generator', () => {
     })
 
     const mock = `${__dirname}/snapshots/withParameters.ts`
-    const generated = getOutputPath(`/services/caju/v1/sponsors/transactions/index.ts`)
+    const generated = getOutputPath(`/src/services/caju/v1/sponsors/transactions/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
 
@@ -62,7 +62,7 @@ describe('Service Generator', () => {
     })
 
     const mock = `${__dirname}/snapshots/withNewAction.ts`
-    const generated = getOutputPath(`/services/caju/v1/admin/sponsors/index.ts`)
+    const generated = getOutputPath(`/src/services/caju/v1/admin/sponsors/index.ts`)
     expectFilesToBeEqual(mock, generated)
   })
 })

@@ -1,7 +1,7 @@
 {
   "name": "frontgen",
   "version": "1.0.0",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
     "@inquirer/prompts": "^2.1.1",
@@ -22,8 +22,8 @@
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "build:clean": "rimraf build/",
-    "build:copy": "copyfiles -u 1 ./src/**/*.ejs build",
+    "build:clean": "rimraf dist/",
+    "build:copy": "copyfiles -u 1 ./src/**/*.ejs dist",
     "build": "yarn build:clean && tsc && yarn build:copy",
     "test": "jest",
     "tsc": "^2.0.4"
