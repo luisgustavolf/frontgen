@@ -1,5 +1,5 @@
 import { readFileSync } from "fs"
-import { addAtEndOfServiceClass } from ".."
+import { appendAtEndOfServiceClass } from ".."
 
 describe('addAtEndOfServiceClass', () => {
   it('shoud brake if no service class was found', () => {
@@ -7,7 +7,7 @@ describe('addAtEndOfServiceClass', () => {
     const baseFileContent = readFileSync(`${__dirname}/snapshots/noServiceClass.ts`).toString()
     
     expect(() => {
-      addAtEndOfServiceClass(baseFileContent, toInject)
+      appendAtEndOfServiceClass(toInject.split('\n'), baseFileContent.split('\n'))
     }).toThrow('Service class not found')      
   }) 
   
@@ -15,7 +15,8 @@ describe('addAtEndOfServiceClass', () => {
     const toInject = '  static async newFoo() {}'
     const baseFileContent = readFileSync(`${__dirname}/snapshots/simpleService-base.ts`).toString()
     const expectFileContent = readFileSync(`${__dirname}/snapshots/simpleService-expect.ts`).toString()
-    const result = addAtEndOfServiceClass(baseFileContent, toInject)
-    expect(result).toBe(expectFileContent)
+    const result = appendAtEndOfServiceClass(toInject.split('\n'), baseFileContent.split('\n'))
+    const finalContent = result.join('\n')
+    expect(finalContent).toBe(expectFileContent)
   })
 })

@@ -1,0 +1,1 @@
+export type IFileInjector = (templateLines: string[], destinationLines: string[]) => string[]

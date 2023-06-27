@@ -1,12 +1,11 @@
-import { existsSync, readFileSync, readSync, writeFileSync } from "fs";
-import { writeTemplate } from "../../../lib/ejs/fileWriter";
-import { IBuilderProps } from "./iBuilderProps";
+import { existsSync } from "fs";
+import { templateWriter } from "../../../lib/ejs/templateWriter";
+import { appendInjector } from "../../../lib/file/injectors/append";
+import { appendAtEndOfImports } from "../../../lib/file/injectors/appendAtEndOfImports";
+import { appendAtEndOfServiceClass } from "../../../lib/file/injectors/appendAtEndOfServiceClass";
 import { getBaseDir } from "./helpers";
+import { IBuilderProps } from "./iBuilderProps";
 import { RenderContext } from "./renderContext";
-import { readTemplate } from "../../../lib/ejs/fileReader";
-import { addAtEndOfImports } from "../../../lib/file/injectors/addAtEndOfImports";
-import { addAtEndOfServiceClass } from "../../../lib/file/injectors/addAtEndOfServiceClass";
-import { format } from "prettier";
 
 export async function generateService(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
@@ -27,7 +26,7 @@ async function createNewServiceFile(props: IBuilderProps) {
     restResourceAction: props.restResourceAction
   })
 
-  await writeTemplate({
+  await templateWriter({
     template: {
       file: `${__dirname}/templates/index.ejs`,
       context
@@ -35,31 +34,39 @@ async function createNewServiceFile(props: IBuilderProps) {
     destination: {
       dir: baseDir,
       fileName: 'index.ts'
-    }
+    },
+    injector: appendInjector
   })
 }
 
 async function injectIntoExistentServiceFile(props: IBuilderProps) {
   const baseDir = getBaseDir(props.vendor, props.restResource)
-  const rootDir = props.rootDir || process.cwd()
   const context = new RenderContext({ 
     restResource: props.restResource,
     restResourceAction: props.restResourceAction
   })
   
-  const destinationFile = `${rootDir}${baseDir}/index.ts`
-  let destinatioContent = readFileSync(destinationFile).toString() 
+  await templateWriter({
+    template: {
+      file: `${__dirname}/templates/imports.ejs`,
+      context
+    },
+    destination: {
+      dir: baseDir,
+      fileName: 'index.ts'
+    },
+    injector: appendAtEndOfImports
+  })
   
-  const importsTemplate = `${__dirname}/templates/imports.ejs`
-  const importsContent = await readTemplate(importsTemplate, {}, { context })
-
-  const functionTemplate = `${__dirname}/templates/function.ejs`
-  const functionContent = await readTemplate(functionTemplate, {}, { context })
-
-  destinatioContent = addAtEndOfImports(destinatioContent, importsContent)
-  destinatioContent = addAtEndOfServiceClass(destinatioContent, functionContent)
-
-  const formattedStr = format(destinatioContent, { parser: 'typescript', singleQuote: true, semi: false, printWidth: 120 })
-  writeFileSync(destinationFile, formattedStr)
+  await templateWriter({
+    template: {
+      file: `${__dirname}/templates/function.ejs`,
+      context
+    },
+    destination: {
+      dir: baseDir,
+      fileName: 'index.ts'
+    },
+    injector: appendAtEndOfServiceClass
+  })
 }
-
