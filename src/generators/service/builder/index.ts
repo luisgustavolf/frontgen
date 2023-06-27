@@ -74,8 +74,8 @@ async function generateInterfaces(baseDir: string, context: RenderContext) {
       context
     },
     destination: {
-      dir: baseDir,
-      fileName: `i${context.getParamName()}.ts`
+      dir: `${baseDir}`,
+      fileName: `${context.getParamNameFileName()}.ts`
     },
     injector: appendAtEndOfFile
   })
@@ -85,9 +85,9 @@ async function generateInterfaces(baseDir: string, context: RenderContext) {
       file: `${__dirname}/templates/iResponse.ejs`,
       context
     },
-    destination: {
-      dir: baseDir,
-      fileName: `i${context.getResponseName()}.ts`
+    destination: {      
+      dir: `${baseDir}`,
+      fileName: `${context.getResponseNameFileName()}.ts`
     },
     injector: appendAtEndOfFile
   })

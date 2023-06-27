@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { V1SponsorsTransactionsData } from './iV1SponsorsTransactionsData'
-import { V1SponsorsTransactionsResponse } from './iV1SponsorsTransactionsResponse'
+import { DtoSponsorsTransactionsData } from './dtoSponsorsTransactionsData'
+import { DtoSponsorsTransactionsResponse } from './dtoSponsorsTransactionsResponse'
 
-export class V1SponsorsTransactionsService {
-  static async fn(sponsorId: string, transactionId: string, data: V1SponsorsTransactionsData) {
+export class SponsorsTransactionsService {
+  static async fn(sponsorId: string, transactionId: string, data: DtoSponsorsTransactionsData) {
     const url = `/v1/sponsors/${sponsorId}/transactions/${transactionId}/`
-    const response = await axios.get<V1SponsorsTransactionsResponse>(url, data)
+    const response = await axios.get<DtoSponsorsTransactionsResponse>(url, data)
     return response.data
   }
 }

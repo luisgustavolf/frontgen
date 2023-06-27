@@ -1,19 +1,19 @@
 import axios from 'axios'
-import { V1AdminSponsorsData } from './iV1AdminSponsorsData'
-import { V1AdminSponsorsResponse } from './iV1AdminSponsorsResponse'
-import { V1AdminSponsorsNewActionData } from './iV1AdminSponsorsNewActionData'
-import { V1AdminSponsorsNewActionResponse } from './iV1AdminSponsorsNewActionResponse'
+import { DtoAdminSponsorsData } from './dtoAdminSponsorsData'
+import { DtoAdminSponsorsResponse } from './dtoAdminSponsorsResponse'
+import { DtoAdminSponsorsNewActionData } from './dtoAdminSponsorsNewActionData'
+import { DtoAdminSponsorsNewActionResponse } from './dtoAdminSponsorsNewActionResponse'
 
-export class V1AdminSponsorsService {
-  static async fn(data: V1AdminSponsorsData) {
+export class AdminSponsorsService {
+  static async fn(data: DtoAdminSponsorsData) {
     const url = `/v1/admin/sponsors/`
-    const response = await axios.get<V1AdminSponsorsResponse>(url, data)
+    const response = await axios.get<DtoAdminSponsorsResponse>(url, data)
     return response.data
   }
 
-  static async fn(data: V1AdminSponsorsNewActionData) {
+  static async fn(data: DtoAdminSponsorsNewActionData) {
     const url = `/v1/admin/sponsors/newAction`
-    const response = await axios.get<V1AdminSponsorsNewActionResponse>(url, data)
+    const response = await axios.get<DtoAdminSponsorsNewActionResponse>(url, data)
     return response.data
   }
 }

@@ -26,6 +26,10 @@ export async function templateWriter<TData extends Data, TContext>(props: ITempl
 
       const formattedStr = format(finalContent, { parser: 'typescript', singleQuote: true, semi: false, printWidth: 120 })
       writeFileSync(file, formattedStr)
+      
+      if (process.env.NODE_ENV !== 'test')
+        console.log(`✔️ ${file}`)
+      
       resolve()
     })
   })

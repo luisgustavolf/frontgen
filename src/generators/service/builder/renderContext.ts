@@ -1,4 +1,4 @@
-import { pascalCase } from "change-case";
+import { camelCase, pascalCase } from "change-case";
 import { getBaseName } from "./helpers";
 import { IRenderContextProps } from "./iRenderContextProps";
 
@@ -18,11 +18,19 @@ export class RenderContext {
   }
 
   getParamName() {
-    return `${this.baseName}${this.getRestResourceActionName()}Data`
+    return `Dto${this.baseName}${this.getRestResourceActionName()}Data`
+  }
+
+  getParamNameFileName() {
+    return camelCase(this.getParamName())
   }
 
   getResponseName() {
-    return `${this.baseName}${this.getRestResourceActionName()}Response`
+    return `Dto${this.baseName}${this.getRestResourceActionName()}Response`
+  }
+
+  getResponseNameFileName() {
+    return camelCase(this.getResponseName())
   }
 
   getFnParams() {

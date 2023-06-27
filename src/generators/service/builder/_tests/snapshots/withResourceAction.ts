@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { V1AdminSponsorsActionData } from './iV1AdminSponsorsActionData'
-import { V1AdminSponsorsActionResponse } from './iV1AdminSponsorsActionResponse'
+import { DtoAdminSponsorsActionData } from './dtoAdminSponsorsActionData'
+import { DtoAdminSponsorsActionResponse } from './dtoAdminSponsorsActionResponse'
 
-export class V1AdminSponsorsService {
-  static async fn(data: V1AdminSponsorsActionData) {
+export class AdminSponsorsService {
+  static async fn(data: DtoAdminSponsorsActionData) {
     const url = `/v1/admin/sponsors/action`
-    const response = await axios.get<V1AdminSponsorsActionResponse>(url, data)
+    const response = await axios.get<DtoAdminSponsorsActionResponse>(url, data)
     return response.data
   }
 }
