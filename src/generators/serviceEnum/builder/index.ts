@@ -1,10 +1,14 @@
 import { templateWriter } from "../../../lib/ejs/templateWriter";
 import { appendAtEndOfFile } from "../../../lib/file/injectors/appendAtEndOfFile";
 import { IBaseBuilderProps } from "./iServiceBuilder";
-import { RenderContext } from "./renderContext";
+import { RenderContext } from "./context";
 
-export async function baseBuilder(props: IBaseBuilderProps) {
-  const context = new RenderContext({})
+export async function serviceEnumBuilder(props: IBaseBuilderProps) {
+  const context = new RenderContext({
+    vendor: props.vendor,
+    title: props.title,
+    key: props.key
+  })
 
   await templateWriter({
     template: {
@@ -12,8 +16,9 @@ export async function baseBuilder(props: IBaseBuilderProps) {
       context
     },
     destination: {
-      dir: '/some/dir',
-      fileName: 'index.ts'
+      dir: context.getDir(),
+      fileName: context.getFileName(),
+      breakIfExists: true
     },
     injector: appendAtEndOfFile
   })

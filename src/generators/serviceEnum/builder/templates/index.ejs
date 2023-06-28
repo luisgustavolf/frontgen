@@ -1,7 +1,11 @@
-export enum <%= this.getBaseName() %> {
-  <%= this.getOption() %> = '<%= this.getOption() %>'
+export enum <%= this.getEnumName() %> {
+  <%= this.getOptionName() %> = '<%= this.getOptionName() %>'
 }
 
-export const <%= this.getBaseName() %>Dictionary {
-  [<%= this.getBaseName() %>.<%= this.getOption() %>] = 'descricao'
+export type <%= this.getEnumName() %>DictionaryType = {
+  [key in <%= this.getEnumName() %>]: string
+}
+
+export const <%= this.getEnumName() %>Dictionary: <%= this.getEnumName() %>DictionaryType = {
+  [<%= this.getEnumName() %>.<%= this.getOptionName() %>]: 'descricao'
 }
