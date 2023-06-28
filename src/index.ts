@@ -22,7 +22,9 @@ async function main() {
     }))
   })
 
-  console.log(generator)
+  const pickedInquirer = generators.find((item) => item.value === generator)
+  if (pickedInquirer)
+    await pickedInquirer.inquirer()
 }
 
 main().catch((error) => {
