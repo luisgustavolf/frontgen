@@ -1,0 +1,7 @@
+export enum <%= this.getBaseName() %> {
+  <%= this.getOption() %> = '<%= this.getOption() %>'
+}
+
+export const <%= this.getBaseName() %>Dictionary {
+  [<%= this.getBaseName() %>.<%= this.getOption() %>] = 'descricao'
+}
